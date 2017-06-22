@@ -491,6 +491,12 @@ public class Joueur{
 		return ruine;
 	}
 	
+	// methode pour afficher tout les noms de ces proprietes
+	public void afficheListeProp() {
+		for (int i=0; i<this.listePropriete.size(); i++)
+			System.out.println(this.listePropriete.get(i).getNomCase());
+	}
+	
 	//////////////////////////////////////////////////
 	/////////// FONCTION MAIN ////////////////////////
 	//////////////////////////////////////////////////

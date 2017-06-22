@@ -131,7 +131,7 @@ public class Jeu {
 		Scanner scString = new Scanner(System.in); // pour recup les string tapes
 		
 		// on va creer les joueurs mais on doit savoir combien il y en a
-		System.out.print("\n" +"Entrez mainenant le nombre de joueur de cette partie (entre 2 et 8) :");
+		System.out.print("\n" +"Entrez mainenant le nombre de joueur de cette partie (entre 2 et 8): ");
 		this.nbJoueur = scInt.nextInt();	//on donne une valeur a la variable
 		// on redonne l'info
 		System.out.println("Cette partie va donc se jouer avec " +this.nbJoueur +" joueurs");
@@ -147,6 +147,7 @@ public class Jeu {
 		while (i<nbJoueur)
 		{
 			boolean valide = false;
+			boolean trouve = false;
 			String tempNom1 = "";
 			while (valide == false)
 			{
@@ -154,27 +155,19 @@ public class Jeu {
 				tempNom1 = scString.nextLine();
 								
 				// on va verifier que le nom n'est pas deja pris par un autre joueur
-				// on parcourt donc tout les joueurs
-				// on fait la verification si il y a deja un joueur dans la liste
-				if (lesJoueurs.size() != 0)
+				for (int j=0; j<this.lesJoueurs.size(); j++)
 				{
-					for (int y=0; y<lesJoueurs.size(); y++)
-					{
-						// si le nom est deja pris, on lui demande de recommencer
-						if (tempNom1 == lesJoueurs.get(y).getNom())
-						{
-							System.out.print("Ce nom est deja pris par un autre joueur, recommencez : ");
-							valide = false;
-						}
-						// sinon, on passe au joueur suivant
-						else
-							valide = true;
-					}
+					if (tempNom1 == lesJoueurs.get(j).getNom())
+						trouve = true;
+				}
+				if (trouve)
+				{
+					System.out.println("Ce nom est deja pris par un autre joueur, recommencez");
+					valide = false;
 				}
 				else
 					//sinon on passe au deuxieme joueur
 					valide = true;
-				
 			}
 				
 			// on va afficher le tableau des pions avec leurs couleurs
@@ -759,6 +752,7 @@ public class Jeu {
 		Scanner scString = new Scanner(System.in); // pour recup les string
 		int reponseSauv = 0;
 		
+		// on va voir comment le joueur veut commencer a jouer
 		while (reponseSauv != 1 && reponseSauv != 2)
 		{
 			
@@ -769,7 +763,7 @@ public class Jeu {
 		}
 		if (reponseSauv == 1)
 		{
-		// On creer le jeu
+			// On creer le jeu
 			System.out.print ("Veuillez entrer le nom de la partie: ");
 			String nom = scString.nextLine();
 			
@@ -796,17 +790,27 @@ public class Jeu {
 			
 		
 		// on va faire marcher les joueurs
-		boolean fini = false; 	// lorsque la partie doit d'arreter
-
+		boolean fini = false; 	// lorsque la partie doit d'arreter (si tout les joueurs sont ruiné)
+		int nbPlusDansLeJeu = 0;
+		
 		// on va verifier qu'un joueur n'est pas ruine sinon on le supprime de la liste des joueurs
 		for (int j=0; j<lesJoueurs.size(); j++)
 		{
-			//si il est ruine on le retire de la liste des joueurs
+			//si il est ruine on le retire de la liste des joueurs et on fait un compteur pour donner le nombre de joueur encore en course
 			if (lesJoueurs.get(j).ruine())
+			{
 				lesJoueurs.remove(j);
+				nbPlusDansLeJeu++;
+			}
+			
+			// on verifie que tout les joueurs ne sont pas tous ruiné
+			if(nbPlusDansLeJeu == nbJoueur)
+			{
+				fini = true;
+			}
 		}
 		
-		while (!fini)
+		while (!fini) // tant que tout les joueurs ne sont pas ruiné ou que l'on ne veut pas quitter on continu de faire tourner le jeu
 		{
 			///////////////////////////////////////////////////////////
 			/////////////////   deplacement du joueur /////////////////
@@ -815,7 +819,15 @@ public class Jeu {
 			System.out.println("\n");
 			System.out.println("\n");
 			System.out.println("\n");
-			System.out.println(lesJoueurs.get(ordre).getNom() + " est a la case : " + lesJoueurs.get(ordre).getCaseActuelle() +"\n");
+			// affiche infos
+			/// Bloc pour avertir le joueur sur sa situation
+			// nom joueur -- nom case actuelle -- argent 
+			// nombre de propriete
+			// liste des nom de propriete
+			System.out.println("////////////////////////////////////////////////////////");
+			System.out.println("joueur : " +lesJoueurs.get(ordre).getNom() +"\t" +"Case actuelle : " +lesJoueurs.get(ordre).getCaseActuelle().getNomCase() +"\t" +"Argent : " +lesJoueurs.get(ordre).getArgent());
+			System.out.println("Vous avez : " +lesJoueurs.get(ordre).getNbProp());
+			lesJoueurs.get(ordre).afficheListeProp();
 			
 			// on va savoir de combien de case il va avancer en lancant les des
 			int nbCasesAvance = jeu.lanceDes();
@@ -886,28 +898,53 @@ public class Jeu {
 				jeu.acheterImmo(ordre, p);
 			}
 			
+			// afficher les infos
+			System.out.println("////////////////////////////////////////////////////////");
+			System.out.println("joueur : " +lesJoueurs.get(ordre).getNom() +"\t" +"Case actuelle : " +lesJoueurs.get(ordre).getCaseActuelle().getNomCase() +"\t" +"Argent : " +lesJoueurs.get(ordre).getArgent());
+			System.out.println("Vous avez : " +lesJoueurs.get(ordre).getNbProp());
+			lesJoueurs.get(ordre).afficheListeProp();
 			
-			// on va demander si les joueurs veulent sauvegarder
-			System.out.println("Voulez vous sauvegarder la partie ?	(taper le numero correspondant)");
-			System.out.println("1) Oui");
-			System.out.println("2) Non");
-			int repSauv = scInt.nextInt();
-			if (repSauv == 1)
+			
+			
+			int repQuitter = scInt.nextInt();
+			while (repQuitter != 1 && repQuitter != 2)
 			{
-				// on sauvegarde et on informe que ça c'est bien passer
-				jeu.sauvegarde(p);
-				System.out.println("Sauvegarde correctement effectuee");
-			}
+				// on va voir si les joueurs veulent arreter de jouer
+				System.out.println("Voulez vous quitter le jeu ?");
+				System.out.println("1) Oui");
+				System.out.println("2) Non");
+				
+				
+				if (repQuitter == 1)
+				{
+					int repSauv = 0;
+					while (repSauv != 1 && repSauv !=2)
+					{
+						// on va demander si les joueurs veulent sauvegarder
+						System.out.println("Voulez vous sauvegarder la partie ?	(taper le numero correspondant)");
+						System.out.println("1) Oui");
+						System.out.println("2) Non");
+						repSauv = scInt.nextInt();
+						if (repSauv == 1)
+						{
+							// on sauvegarde et on informe que ça c'est bien passer
+							jeu.sauvegarde(p);
+							System.out.println("Sauvegarde correctement effectuee");
+						}
+					}
+					// on dit de finir
+					fini = true;
+				}
+			} // fin de la demande de quitter le jeu ou pas
 			
+			System.out.println("On va passer au joueur suivant");
+			
+			// on reparamettre la joueur qui va jouer
 			ordre = (ordre + 1) % lesJoueurs.size();	// pour passer au joueur suivant			
-		} // fin du while
 		
 		
 		
-		
-		
-		
-		
+		} // fin du while pour la fin du jeu
 		
 	} // Fin de la fonction main
 	
