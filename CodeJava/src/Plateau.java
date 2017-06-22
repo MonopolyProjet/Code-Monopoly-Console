@@ -13,7 +13,7 @@ public class Plateau {
 	static ArrayList <CarteChance> listeCarteChance;
 	static ArrayList <CarteCommunaute> listeCarteCommunaute;
 	private int nbCase;
-	private static int argentPlateau; // argent qui est poser sur le plateau
+	private static int argentPlateau; // argent qui est pose sur le plateau
 	
 	// constructeur vide
 	Plateau () {
@@ -31,7 +31,7 @@ public class Plateau {
 		for (int j=1; j<16; j++) // toujours 16 cartes
 			listeCarteCommunaute.add(new CarteCommunaute(j));
 		
-		// on cr�er toutes les cases
+		// on cree toutes les cases
 		touteCase.add(new Case("depart", touteCase.size()));
 		touteCase.add(new Case("belleville", touteCase.size()));
 		touteCase.add(new Case("communaute", touteCase.size()));
@@ -81,7 +81,7 @@ public class Plateau {
 		// on declare le fichier dans lequel on va lire
 		File file = new File ("Sauv" +nomPartieACharger +File.separator +fichierACharger);
 					
-		// si le fichier existe on va faire les operation suivante
+		// si le fichier existe on va faire les operations suivantes
 		if (file.exists())
 		{
 			// on test si pas de probleme
@@ -99,12 +99,12 @@ public class Plateau {
 		// on va s'occuper de la lecture
 		try (FileInputStream fis = new FileInputStream(file)) 
 		{
-			// on creer un scanner
+			// on cree un scanner
 			Scanner sc = new Scanner (fis);
 			String temp = "";
 			// on recuperer tout les attributs un par un
 			
-			// on recup la liste de toute les cases pour les reconstruire
+			// on recup la liste de toutes les cases pour les reconstruire
 			for (int i=0; i<40; i++)
 			{
 				this.touteCase.add(new Case(sc.nextLine(), i));
@@ -126,7 +126,7 @@ public class Plateau {
 	
 	
 	
-	// methode pour sauvegarder le joueur
+	// methode pour sauvegarder le plateau
 	public void sauvegarde(String nomPartie, String nomFichier) {
 		try
 		{
@@ -135,7 +135,7 @@ public class Plateau {
 			if (dossier.isDirectory() == false)
 					dossier.mkdir();
 			
-			// on créer le fichier dans le dossier de la sauvegarde
+			// on cree le fichier dans le dossier de la sauvegarde
 			File file = new File (dossier +File.separator +nomFichier);
 						
 				
@@ -161,7 +161,7 @@ public class Plateau {
 		return touteCase.get(ind);
 	}
 	
-	// methode pour remettre la pile de carte comme il faut
+	// methode pour remettre la pile de carte comme il faut (on tire la carte du dessus et on la remet en bas de la pile)
 	public void mettreAjourListeCarteChance(){
 		// on stock la premiere
 		CarteChance tempCarte = listeCarteChance.get(0);
@@ -171,7 +171,7 @@ public class Plateau {
 		listeCarteChance.add(tempCarte);
 	}
 	
-	// methode pour remettre la pile de carte comme il faut
+	// methode pour remettre la pile de carte comme il faut (on tire la carte du dessus et on la remet en bas de la pile)
 	public void mettreAjourListeCarteCo(){
 		// on stock la premiere
 		CarteCommunaute tempCarte = listeCarteCommunaute.get(0);
@@ -224,7 +224,7 @@ public class Plateau {
 		this.argentPlateau += somme;
 	}
 
-	// methode pour reinitialis� l'argent sur le plateau
+	// methode pour reinitialiser l'argent sur le plateau
 	public static void retirerArgentPlateau() {
 		argentPlateau = 0;
 	}
@@ -234,16 +234,16 @@ public class Plateau {
 	/////////// FONCTION MAIN ////////////////////////
 	//////////////////////////////////////////////////
 	public static void main (String [] args) {
-		// on créer un plateau
+		// on crée un plateau
 		Plateau p = new Plateau ();
 		System.out.println("Plateau crée");
 		
 		// on s'occupe de l'argent sur le plateau
-		// on ajoute de k'argent au plateau (2 milles)
+		// on ajoute de l'argent au plateau (2 milles)
 		p.ajouterArgentPlateau(2);
 		// on affiche 
 		System.out.println("Argent sur le plateau : " +getArgentPlateau());
-		// on donne l'argent a un joueur et on reaffcihe la somme sur le plateau
+		// on donne l'argent a un joueur et on reaffiche la somme sur le plateau
 		Joueur j = new Joueur ("Ludo", "bleu");
 		recupererArgent(j);
 		System.out.println("Argent sur le plateau apres avoir recuperer par joueur : " +getArgentPlateau());

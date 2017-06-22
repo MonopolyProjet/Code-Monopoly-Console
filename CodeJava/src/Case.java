@@ -34,7 +34,7 @@ public class Case {
 		// on declare le nouveau fichier dans lequel on va lire
 		File f = new File ("src/CartePropriete/" +nom +".txt");
 		
-		// si le fichier existe on va faire les operation suivante
+		// si le fichier existe on va faire les operations suivantes
 		if (f.exists())
 		{
 			// on test si pas de probleme
@@ -50,9 +50,9 @@ public class Case {
 		
 		// on va s'occuper de la lecture
 		try (FileInputStream fis = new FileInputStream(f)) {
-			// on creer un scanner
+			// on cree un scanner
 			Scanner sc = new Scanner (fis);
-			// on attrape maintenant ligne par ligne (tant qu'il y en a)
+			// on attrape maintenant les informations ligne par ligne (tant qu'il y en a)
 			// pour les cartes sans valeurs numérique de loyer dedans
 			if (nom == "depart" || nom == "aller_prison" || nom == "impots_sur_le_revenu" || nom == "chance" || nom == "communaute" || nom == "parc_gratuit" || nom == "taxe_de_luxe" || nom == "prison")
 				this.nom = sc.nextLine();
@@ -110,7 +110,7 @@ public class Case {
 		// on declare le fichier dans lequel on va lire
 		File file = new File ("Sauv" +nomPartieACharger +File.separator +fichierACharger);
 					
-		// si le fichier existe on va faire les operation suivante
+		// si le fichier existe on va faire les operations suivantes
 		if (file.exists())
 		{
 			// on test si pas de probleme
@@ -128,7 +128,7 @@ public class Case {
 		// on va s'occuper de la lecture
 		try (FileInputStream fis = new FileInputStream(file)) 
 		{
-			// on creer un scanner
+			// on cree un scanner
 			Scanner sc = new Scanner (fis);
 			
 			String temp = "";
@@ -161,7 +161,7 @@ public class Case {
 	} // fin du constructeur
 	
 		
-	// methode pour sauvegarder le joueur
+	// methode pour sauvegarder la case
 	public void sauvegarde(String nomPartie) {
 		try
 		{
@@ -180,7 +180,7 @@ public class Case {
 			pw.write(this.nom);
 			pw.write(this.nbMaison);
 			pw.write(this.nbHotel);
-			// pour le propri�taire, on marque son nom
+			// pour le proprietaire, on marque son nom
 			pw.write(this.proprietaire.getNom());
 			pw.write(this.valeur);
 			pw.write(this.loyer);
@@ -270,7 +270,7 @@ public class Case {
 		this.nbMaison = 4;
 	}
 	
-	// methode pour recupererle nombre d'hotel
+	// methode pour recuperer le nombre d'hotel
 	int getNbHotel () {
 		return nbHotel;
 	}
@@ -280,7 +280,7 @@ public class Case {
 		return this.couleurCase;
 	}
 	
-	//procedure return boolean true if it belongs to someone
+	// procedure return boolean true if it belongs to someone (si la case appartient a quelqu'un)
 	public boolean appartientA(){
 		if (this.proprietaire!=null) return(true);
 		else return(false);
@@ -296,12 +296,12 @@ public class Case {
 		return (this.numCase);
 	}
 	
-	// methode pour assigner un propri�taire
+	// methode pour assigner un proprietaire
 	void ajouterProprio (Joueur j) {
 		this.proprietaire = j;
 	}
 	
-	// methode pour recuperer le propri�taire
+	// methode pour recuperer le proprietaire
 	Joueur getProprietaire () {
 		return this.proprietaire;
 	}
@@ -319,13 +319,13 @@ public class Case {
 			s = s +nom;
 		// pour les compagnies
 		else if (nom == "eau" || nom == "electricite")
-			s = s  +nom +"\n" +"Prix de la case : " +valeur +"\n" +"Multiplié par " +loyer1maison +" la somme des dés si vous avez une des compagnies, sinon par " +loyer2maison;
+			s = s  +nom +"\n" +"Prix de la case : " +valeur +"\n" +"Multiplier par " +loyer1maison +" la somme des dés si vous avez une des compagnies, sinon par " +loyer2maison;
 		//pour les gares
 		else if (nom == "lyon" || nom == "nord" || nom == "saint-lazare" || nom == "montparnasse")
 			s = s +"gare " +nom +"\n" +"Prix de la case : " +valeur +"\n" +"Somme a multiplié par le nombre de gare : " +loyer1maison;
 		// pour les cartes de propriété
 		else
-			s = s +nom +"\n" +"Couleur : " +couleurCase +"\n" +"prix de la case : " +valeur +"\n" +"Loyer: " +loyer +"\n" +"1 maison: " +loyer1maison +"\n" +"2 maisons: " +loyer2maison +"\n" +"3 maisons: " +loyer3maison +"\n" +"4 maisons: " +loyer4maison +"\n" +"loyer hotel: " +loyerHotel +"\n" +"Prix immobilié: " +prixMaison;
+			s = s +nom +"\n" +"Couleur : " +couleurCase +"\n" +"prix de la case : " +valeur +"\n" +"Loyer: " +loyer +"\n" +"1 maison: " +loyer1maison +"\n" +"2 maisons: " +loyer2maison +"\n" +"3 maisons: " +loyer3maison +"\n" +"4 maisons: " +loyer4maison +"\n" +"loyer hotel: " +loyerHotel +"\n" +"Prix immobilier: " +prixMaison;
 		return(s);
 	}
 	
@@ -336,14 +336,14 @@ public class Case {
 	/////////////////////////////////////////////////////
 	
 	public static void main (String [] args) {
-	// on va cr�er 3 cartes (les trois premieres)
+	// on va cree 3 cartes (les trois premieres)
 	Case c1 = new Case ("champs", 0);
 	Case c2 = new Case ("fayette", 1);
 	Case c3 = new Case ("foch", 2);
 	Case c4 = new Case ("depart", 3);
 	Case c5 = new Case ("chance", 4);
 	
-	// on va les affichers
+	// on va les afficher
 	System.out.println(c1);
 	System.out.println(c2);
 	System.out.println(c3);

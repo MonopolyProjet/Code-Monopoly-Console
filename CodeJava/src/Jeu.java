@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SingleSelectionModel;
 
 public class Jeu {
@@ -35,7 +40,7 @@ public class Jeu {
 		// si le fichier existe on va faire les operation suivante
 		if (file.exists())
 		{
-			// on test si pas de probleme
+			// on test si pas de probleme pour trouver le fichier a lire
 			try 
 			{
 				file.createNewFile();
@@ -74,12 +79,12 @@ public class Jeu {
 	public void sauvegarde(Plateau p) {
 		try
 		{
-			// on y place le nouveau fichier text
+			// on y place le nouveau fichier texte
 			File dossier = new File ("Sauv" +this.nom +File.separator);
 			if (dossier.isDirectory() == false)
 					dossier.mkdir();
 			
-			// on créer le fichier dans le dossier de la sauvegarde
+			// on crée le fichier dans le dossier de la sauvegarde
 			File file = new File (dossier +File.separator +this.nom + ".txt");
 						
 				
@@ -87,15 +92,15 @@ public class Jeu {
 			pw.write(nom +"\n");
 			pw.write(ordre);
 			pw.write(lesJoueurs.size() +"\n");
-			pw.write("/" +"\n");  		// pour symbolyse le saut de ligne
+			pw.write("/" +"\n");  		// pour symbolyser le saut de ligne
 			// on va donner le nom des fichiers a ecrire pour les joueurs
 			for (int i=0; i<this.nbJoueur; i++)
-				pw.write("joueur" +i +".txt" +"\n");	// on met le numéro pour pouvoir le reconstruire a partir de ces fichiers
+				pw.write("joueur" +i +".txt" +"\n");	// on met le numero pour pouvoir le reconstruire a partir de ces fichiers
 			pw.write("/" +"\n");  		// pour symbolyse le saut de ligne
 			pw.write("plateau.txt");
 			pw.close();
 			
-			// on lance la sauvegarde de tout les joueurs
+			// on lance la sauvegarde de tous les joueurs
 			for (int i=0; i<lesJoueurs.size(); i++)
 				lesJoueurs.get(i).sauvegarde(this.nom, (lesJoueurs.get(i).getNom() +".txt") );
 			// on lance la sauvegarde du plateau
@@ -180,7 +185,7 @@ public class Jeu {
 			// on verifie que la donnees est valide
 			if(tempCouleur > 8 - i) // -i car une couleur est enlever à chaque fois
 			{
-				System.out.print("Nombre invalide veuillez recommencer ... Saisisez votre r�ponse : ");
+				System.out.print("Nombre invalide veuillez recommencer ... Saisisez votre reponse : ");
 				// on recupere la reponse
 				tempCouleur = scInt.nextInt ();
 			}
@@ -195,7 +200,7 @@ public class Jeu {
 		
 		
 			// on avertie que le joueur a ete cree
-			System.out.println("Joueur cree");
+			System.out.println("Joueur " +tempNom1 +" cree");
 			
 		}		
 	} // fin methode pour creer les joueurs
@@ -212,11 +217,11 @@ public class Jeu {
 		return appartient;
 	}
 
-	// methode pour lancer les dés
+	// methode pour lancer les des
 	private int lanceDes () {
 		int nbAlea = 0;
 		
-		Random r = new Random(); //Génération du nombre aléatoire
+		Random r = new Random(); //Generation du nombre aleatoire
 		nbAlea = 2 + r.nextInt(12 - 2); //On fait en sorte que le nombre soit compris entre 2 et 12
 		
 		return nbAlea;
@@ -226,7 +231,7 @@ public class Jeu {
 	private static int nombreAlea () {
 		int nbAlea = 0;
 		
-		Random r = new Random(); //Génération du nombre aléatoire
+		Random r = new Random(); //Generation du nombre aléatoire
 		nbAlea = 2 + r.nextInt(16); //On fait en sorte que le nombre soit compris entre 2 et 12
 		
 		return nbAlea;
@@ -242,18 +247,18 @@ public class Jeu {
 		// on va créer une ArrayListe de joueur avec tout les joueurs
 		for (int i=0; i<nbJoueur; i++)
 		{
-			if (i != ordre) // on ajoute pas le joueur qui a refusé la propriete
+			if (i != ordre) // on ajoute pas le joueur qui a refuse la propriete
 				joueursEnCourse.add(lesJoueurs.get(i));
 		}
 		
-		// on va demander a chaque joueur de la liste cree si ils veulent acheter la propriété
+		// on va demander a chaque joueur de la liste cree si ils veulent acheter la propriete
 		while (joueursEnCourse.size() != 1)		// tant qu'il ne reste pas un seul joueur en course on recommence
 		{
 			if (joueursEnCourse.get(j).veutAcheter())
-				valeurProp += 20000; 	// le prix de la propriété augmente petit a petit
+				valeurProp += 20000; 	// le prix de la propriete augmente petit a petit
 			else
 			{
-				// on supprime le joueur de la liste des joueurs interressé
+				// on supprime le joueur de la liste des joueurs interresses
 				joueursEnCourse.remove(j);
 			}
 			
@@ -261,7 +266,7 @@ public class Jeu {
 			j++;	
 		}
 		
-		// le joueur qui a encherie en dernier va acheter la propriété
+		// le joueur qui a encherie en dernier va acheter la propriete
 		joueursEnCourse.get(0).acheterCaseEnchere(lesJoueurs.get(ordre).getCaseActuelle(), valeurProp);
 		
 	}	// fin de la methode mettreAuxEnchere
@@ -283,9 +288,9 @@ public class Jeu {
 			lesJoueurs.get(ordre).setIndCaseActuelle("prison", 10);
 		break;
 		case 2:
-			//"Aller à la gare la plus proche. Si vous passez par la case départ recevez 200 000
+			//"Aller à la gare la plus proche. Si vous passez par la case départ recevez 200
 			
-			if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase()==7)
+			if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 7)
 			{
 				lesJoueurs.get(ordre).setIndCaseActuelle("lyon", 15);
 				if(lesJoueurs.get(ordre).getCaseActuelle().appartientA())
@@ -626,7 +631,7 @@ public class Jeu {
 		{
 			System.out.println("Quel type d'immobilier voulez vous acheter ?   (selectionnez le numero correspondant)");
 			System.out.println("1) Maison");
-			System.out.println("2) Hôtel");
+			System.out.println("2) Hotel");
 			tempRepImmo = scImmo.nextInt();
 			
 			// on va lancer la fonction correspondante
@@ -646,7 +651,7 @@ public class Jeu {
 					// on regarde que la case n'est pas hypotheque
 					if (!tempCase.estHypotheque())
 					{
-						// on regarde qu'il n'y a déjà pas 4 maisons sur la propriete
+						// on regarde qu'il n'y a deja pas 4 maisons sur la propriete
 						if (tempCase.getNbMaison() + nbMaisonAAjouter <= 4)
 						{
 							// on ajoute la maison
@@ -679,7 +684,7 @@ public class Jeu {
 							choisi = true;
 						}
 						else
-							System.out.println("Cette case est hypothequee, vous ne pouvez pas ajoute d'immo sur cette case");
+							System.out.println("Cette case est hypothequee, vous ne pouvez pas ajoute d'immobilier sur cette case");
 				
 					}
 				}
@@ -687,8 +692,8 @@ public class Jeu {
 		}
 		
 		
-		else // si il ne veut pas acheter d'immobilié
-			System.out.println("Très bien, ce sera pour une prochaine fois !");
+		else // si il ne veut pas acheter d'immobilier
+			System.out.println("Tres bien, ce sera pour une prochaine fois !");
 		
 	} // fin de la méthode de la gestion des achats de l'immobilier
 	
@@ -718,7 +723,7 @@ public class Jeu {
 			else	// si il y a de l'immobilier sur la case
 			{
 				
-				// on va regarder le nombre de maison qu'il y a sur la propriété
+				// on va regarder le nombre de maison qu'il y a sur la propriete
 				if (lesJoueurs.get(ordre).getCaseActuelle().getNbMaison() == 1)
 					somme = lesJoueurs.get(ordre).getCaseActuelle().getLoyer1Maison();
 				else if (lesJoueurs.get(ordre).getCaseActuelle().getNbMaison() == 2)
@@ -747,6 +752,30 @@ public class Jeu {
 		Jeu jeu = null;
 		Plateau p = null;
 		
+		
+		
+		// on va fabriquer une fenetre avec une fenetre affichant le plateau pour mieux repere (aucune action ne sera faites sur ce dernier)
+		// on construit la fenetre
+		JFrame fenetrePlateau = new JFrame ("Affichage du plateau");
+		// on donne toute les propriete a la fenetre
+		fenetrePlateau.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetrePlateau.setSize(620, 630);
+		
+		// on gere le contenu		
+		JPanel contenu = new JPanel ();
+		// on lui donne son layout
+		contenu.setLayout(new GridLayout(1,1));
+		// on cree l'image
+		JLabel fondMonopoly = new JLabel(new ImageIcon("src\\plateauMonopoly.png"));
+		//panelGauche.setLayout(new BorderLayout());
+		contenu.add(fondMonopoly);
+		// on l'ajoute a la fenetre
+		fenetrePlateau.add(contenu);
+		
+		// on affiche la fenetre
+		fenetrePlateau.setVisible(true);
+		
+		
 		// on va demander si on veut charger une partie ou en creer une
 		Scanner scInt = new Scanner(System.in); // pour recuperer ce qui est taper au clavier (entre dans le terminal)
 		Scanner scString = new Scanner(System.in); // pour recup les string
@@ -758,7 +787,7 @@ public class Jeu {
 			
 			System.out.println("1) Nouvelle partie");
 			System.out.println("2) Charger partie");
-			System.out.print("Que voulez vous faire ? 	(Entrez le numero correspondant) ");
+			System.out.print("Que voulez vous faire ? 	(Entrez le numero correspondant) : ");
 			reponseSauv = scInt.nextInt();
 		}
 		if (reponseSauv == 1)
@@ -778,6 +807,12 @@ public class Jeu {
 							
 				// on appel la methode pour creer les joueur
 				jeu.creerJoueur();
+				
+				// on dit la somme de depart a tout les joueur au debut du jeu
+				System.out.println("\n" +"//////////////////////////////////////");
+				System.out.println("Pour toutes les saisies a faire, ne taper pas les accens, remplacez les par un caractere simple");
+				System.out.println("Tout les joueurs ont recu 1 500 000 au debut de la partie");
+				System.out.println("//////////////////////////////////////" +"\n");
 			}
 		}
 		else if(reponseSauv == 2)
@@ -788,6 +823,8 @@ public class Jeu {
 			jeu = new Jeu (nom, 1);
 		}
 			
+		
+		
 		
 		// on va faire marcher les joueurs
 		boolean fini = false; 	// lorsque la partie doit d'arreter (si tout les joueurs sont ruin�)
@@ -818,16 +855,17 @@ public class Jeu {
 			// on affiche la case actuelle du joueur pour qu'il sache ou il est sur le plateau
 			System.out.println("\n");
 			System.out.println("\n");
-			System.out.println("\n");
+			
 			// affiche infos
 			/// Bloc pour avertir le joueur sur sa situation
 			// nom joueur -- nom case actuelle -- argent 
 			// nombre de propriete
 			// liste des nom de propriete
-			System.out.println("////////////////////////////////////////////////////////");
-			System.out.println("joueur : " +lesJoueurs.get(ordre).getNom() +"\t" +"Case actuelle : " +lesJoueurs.get(ordre).getCaseActuelle().getNomCase() +"\t" +"Argent : " +lesJoueurs.get(ordre).getArgent());
-			System.out.println("Vous avez : " +lesJoueurs.get(ordre).getNbProp());
+			System.out.println("\n" +"////////////////////////////////////////////////////////");
+			System.out.println("joueur : " +lesJoueurs.get(ordre).getNom() +"\t" +"//" +"\t" +"Case actuelle : " +lesJoueurs.get(ordre).getCaseActuelle().getNomCase() +"\t" +"//" +"\t"+"Argent : " +lesJoueurs.get(ordre).getArgent());
+			System.out.println("Vous avez : " +lesJoueurs.get(ordre).getNbProp() +" propriete(s)");
 			lesJoueurs.get(ordre).afficheListeProp();
+			System.out.println("////////////////////////////////////////////////////////" +"\n");
 			
 			// on va savoir de combien de case il va avancer en lancant les des
 			int nbCasesAvance = jeu.lanceDes();
@@ -845,7 +883,7 @@ public class Jeu {
 			
 			// phrase pour dire de combien de case le joueur a avancer et on affiche sa case actuelle
 			System.out.println("\n" +lesJoueurs.get(ordre).getNom() + " avance de " + nbCasesAvance + " cases.");
-			System.out.println(lesJoueurs.get(ordre).getNom() + " est maintenant a la case : " + lesJoueurs.get(ordre).getCaseActuelle());
+			System.out.println(lesJoueurs.get(ordre).getNom() + " est maintenant a la case : " + lesJoueurs.get(ordre).getCaseActuelle() +"\n");
 			
 			/////////////////////////////////////////////////////////////////////////////
 			/////// ON VA VOIR L'ACTION A REALISER EN FONCTION DU TYPE DE LA CASE ///////
@@ -899,21 +937,22 @@ public class Jeu {
 			}
 			
 			// afficher les infos
-			System.out.println("////////////////////////////////////////////////////////");
-			System.out.println("joueur : " +lesJoueurs.get(ordre).getNom() +"\t" +"Case actuelle : " +lesJoueurs.get(ordre).getCaseActuelle().getNomCase() +"\t" +"Argent : " +lesJoueurs.get(ordre).getArgent());
-			System.out.println("Vous avez : " +lesJoueurs.get(ordre).getNbProp());
+			System.out.println("\n" +"////////////////////////////////////////////////////////");
+			System.out.println("joueur : " +lesJoueurs.get(ordre).getNom() +"\t" +"//" +"\t" +"Case actuelle : " +lesJoueurs.get(ordre).getCaseActuelle().getNomCase() +"\t" +"//" +"\t"+"Argent : " +lesJoueurs.get(ordre).getArgent());
+			System.out.println("Vous avez : " +lesJoueurs.get(ordre).getNbProp() +" propriete(s)");
 			lesJoueurs.get(ordre).afficheListeProp();
+			System.out.println("////////////////////////////////////////////////////////" +"\n");
 			
 			
 			
-			int repQuitter = scInt.nextInt();
+			int repQuitter = 0;
 			while (repQuitter != 1 && repQuitter != 2)
 			{
 				// on va voir si les joueurs veulent arreter de jouer
 				System.out.println("Voulez vous quitter le jeu ?");
 				System.out.println("1) Oui");
 				System.out.println("2) Non");
-				
+				repQuitter = scInt.nextInt();
 				
 				if (repQuitter == 1)
 				{
@@ -931,18 +970,21 @@ public class Jeu {
 							jeu.sauvegarde(p);
 							System.out.println("Sauvegarde correctement effectuee");
 						}
+						else if (repSauv == 2)
+							System.exit(0);
 					}
 					// on dit de finir
 					fini = true;
 				}
+				else if (repQuitter == 2)
+				{
+					// on reparamettre la joueur qui va jouer
+					ordre = (ordre + 1) % lesJoueurs.size();	// pour passer au joueur suivant
+				}
+				
 			} // fin de la demande de quitter le jeu ou pas
 			
-			System.out.println("On va passer au joueur suivant");
-			
-			// on reparamettre la joueur qui va jouer
-			ordre = (ordre + 1) % lesJoueurs.size();	// pour passer au joueur suivant			
-		
-		
+			System.out.println("On va passer au joueur suivant");	
 		
 		} // fin du while pour la fin du jeu
 		

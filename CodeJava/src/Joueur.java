@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Joueur{
+	// on declare tous les attributs de cette classe
 	private String nom;
 	private int argent;
 	private String couleur;
@@ -27,7 +28,7 @@ public class Joueur{
 	public Joueur (String nom, String couleur) {
 		this.nom = nom;
 		this.couleur = couleur;
-		this.argent = 150000;
+		this.argent = 1500000;
 		this.listeCarteChance = new ArrayList <CarteChance> ();
 		this.listeCarteCommunaute = new ArrayList <CarteCommunaute> ();
 		this.listePropriete = new ArrayList <Case> ();
@@ -44,10 +45,10 @@ public class Joueur{
 		// on declare le fichier dans lequel on va lire
 		File file = new File ("Sauv" +nomPartieACharger +File.separator +fichierACharger);
 					
-		// si le fichier existe on va faire les operation suivante
+		// si le fichier existe on va faire les operations suivantes
 		if (file.exists())
 		{
-			// on test si pas de probleme
+			// on test si pas de probleme pour trouver le fichier
 			try 
 			{
 				file.createNewFile();
@@ -62,10 +63,10 @@ public class Joueur{
 		// on va s'occuper de la lecture
 		try (FileInputStream fis = new FileInputStream(file)) 
 		{
-			// on creer un scanner
+			// on cree un scanner
 			Scanner sc = new Scanner (fis);
 			
-			String temp = "";
+			String temp = "";	// pour le saut de ligne
 			
 			// on va recuperer tout les attributs un par un
 			this.nom = sc.nextLine();
@@ -83,7 +84,7 @@ public class Joueur{
 				this.listeCarteChance.add(p.getCarteChance(indiceTempChance));
 			}
 			temp = sc.nextLine();
-			// on va recuperer les num�ros de carte chance et ajoute les cartes correspondante � la liste des cartes du joueur
+			// on va recuperer les num�ros de carte chance et ajoute les cartes correspondantes � la liste des cartes du joueur
 			int indiceTempCo = 0;
 			while (sc.nextLine() != "/")
 			{
@@ -119,12 +120,12 @@ public class Joueur{
 	public void sauvegarde(String nomPartie, String nomFichier) {
 		try
 		{
-			// on y place le nouveau fichier text
+			// on y place le nouveau fichier texte
 			File dossier = new File ("Sauv" +nomPartie +File.separator);
 			if (dossier.isDirectory() == false)
 					dossier.mkdir();
 			
-			// on créer le fichier dans le dossier de la sauvegarde
+			// on cree le fichier dans le dossier de la sauvegarde
 			File file = new File (dossier +File.separator +nomFichier);
 						
 				
@@ -194,7 +195,7 @@ public class Joueur{
 		return this.enPrison;
 	}
 	
-	//méthode pour connaitre le nb de maisons qu'il possède en tout
+	//methode pour connaitre le nb de maisons qu'il possède en tout
 	public int getNbMaisons(){
 		int nbMaisons=0;
 		for(int i=0; i<listePropriete.size();i++){
@@ -203,7 +204,7 @@ public class Joueur{
 		return(nbMaisons);
 	}
 		
-	//méthode pour connaitre le nb d'hotel qu'il possède en tout
+	//methode pour connaitre le nb d'hotel qu'il possède en tout
 	public int getNbHotels(){
 		int nbHotels=0;
 		for(int i=0; i<listePropriete.size();i++){
@@ -212,7 +213,7 @@ public class Joueur{
 		return(nbHotels);
 	}
 	
-	//méthode pour faire reculer un joueur
+	//methode pour faire reculer un joueur
 	public void reculerJoueur(int nbCases){
 		this.indiceCaseActuelle=this.getIndCaseActuelle()-nbCases;
 	}
@@ -334,7 +335,7 @@ public class Joueur{
 		System.out.println("Vous allez entrer le numero de la case à hypothequer");
 		for (int i=0; i<listePropriete.size(); i++)
 		{
-			// on va verifie qu'elle n'est pas deja hypothequé
+			// on va verifie qu'elle n'est pas deja hypotheque
 			if (!listePropriete.get(i).estHypotheque())
 				System.out.println(i +") " +listePropriete.get(i).getNomCase());
 		}
@@ -347,7 +348,7 @@ public class Joueur{
 		gagneArgent(listePropriete.get(indice).getHypo());
 		listePropriete.get(indice).hypothequer();
 		//on lui dit combien il a recupere
-		System.out.println("Vous vez récuperé " +listePropriete.get(indice).getHypo());
+		System.out.println("Vous avez recuperer " +listePropriete.get(indice).getHypo() +" milles");
 	}
 
 
@@ -355,7 +356,7 @@ public class Joueur{
 	public boolean aCase (Case c) {
 		boolean trouve = false;
 		int cpt = 0;
-		// on parcourt la liste de ces propri�t�s
+		// on parcourt la liste de ces proprietes
 		while (!trouve)
 		{
 			if (listePropriete.get(cpt) == c)
@@ -366,10 +367,10 @@ public class Joueur{
 		return trouve;
 	}
 	
-	// methode pour afficher toutes les propriété d'un joueur sous forme de liste
+	// methode pour afficher toutes les proprietes d'un joueur sous forme de liste
 	private void afficherPropri() {
 		System.out.println("Le joueur possède toute les propriétés suivantes : " +"\n");
-		// on parcourt toutes ses propriétes et on les affiche
+		// on parcourt toutes ses proprietes et on les affiche
 		for (int i=0; i<listePropriete.size(); i++)
 		{
 			System.out.println(listePropriete.get(i) +"\n");
@@ -384,22 +385,22 @@ public class Joueur{
 		return s;
 	}
 	
-	// methode pour renvnoyer le nombre de propriété que le joueur a
+	// methode pour renvnoyer le nombre de propriete que le joueur a en sa possesion 
 	public int getNbProp () {
 		return listePropriete.size();
 	}
 	
-	// methode pour retourner une propriété du joueur
+	// methode pour retourner une propriete du joueur
 	public Case getProprieteJoueur (int ind) {
 		return listePropriete.get(ind);
 	}
 	
-	//Methode pour donner le nombre de gares d'un joueur (utilisé pour les cartes)
+	//Methode pour donner le nombre de gares d'un joueur (utilise pour les cartes)
 	public int getNbGares(){
 		return(this.nbGares);
 	}
 	
-	// methode pour voir si leu joueur peut acheter de l'immobiller donc si il a toute les propriété d'une meme famille
+	// methode pour voir si leu joueur peut acheter de l'immobiller donc si il a toute les proprietes d'une meme famille
 	public boolean peutAcheterImmo () {
 		boolean peutAcheter = false;
 		// on va stocker le nombre de case d'une meme couleur
@@ -413,10 +414,10 @@ public class Joueur{
 		int nbCarteBleuFonce = 0;
 		String tempCouleur;
 		
-		//on va parcourir toute ses cartes
+		//on va parcourir toutes ses cartes
 		for (int i=0; i<listePropriete.size(); i++)
 		{
-			// on va recuperer la couleur de la case à chaque fois et remettre les compteurs a jour
+			// on va recuperer la couleur de la case a chaque fois et remettre les compteurs a jour
 			tempCouleur = listePropriete.get(i).getCouleur();
 			
 			// on s'occuper des compteurs
@@ -444,7 +445,7 @@ public class Joueur{
 				peutAcheter = true;
 		}
 		return peutAcheter;
-	} // fin de la méthode peut acheter
+	} // fin de la methode peut acheter
 	
 	// methode pour voir si un joueur a toutes les case d'une meme couleur
 	public boolean aTouteCaseCouleur (String couleurRef) {
@@ -456,7 +457,7 @@ public class Joueur{
 			if (listePropriete.get(i).getCouleur() == couleurRef)
 				cpt++;
 		}
-		// on gere le boolean
+		// on gere le boolean car toute les couleurs n'ont pas le meme nombre de case
 		if (couleurRef == "marron" || couleurRef == "bleu fonce")
 		{
 			if (cpt == 2)
@@ -470,11 +471,11 @@ public class Joueur{
 		return aTouteCase;
 	}
 	
-	// methode pour voir si un joueur est ruiné
+	// methode pour voir si un joueur est ruine
 	public boolean ruine () {
 		boolean ruine = false;
 		
-		// on va regarder si toute ces proprietes sont hypotheque
+		// on va regarder si toute ces proprietes sont hypothequees
 		boolean touteHypo = false;
 		int cptHypo = 0;
 		for (int i=0; i<listePropriete.size(); i++)
@@ -519,13 +520,13 @@ public class Joueur{
 		Case c = new Case("champs", 0);
 		
 		j.acheterCase(c);
-		// on va vérifier qu'il est la case
+		// on va verifier qu'il est la case
 		if (j.aCase (c))
 			System.out.println("Le joueur a bien la case : " +c);
 		else
 			System.out.println("La transaction n'a pas fonctionné");
 		
-		// on va afficher toute les propriétés du joueur
+		// on va afficher toute les proprietes du joueur
 		Case c2 = new Case("pigalle", 1);
 		j.acheterCase(c2);
 		j.afficherPropri();

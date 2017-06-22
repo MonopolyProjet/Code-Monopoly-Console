@@ -7,21 +7,19 @@ import java.util.Scanner;
 
 public class CarteChance extends Carte {
 	
-	
-	
-	// on va creer un constructeur qui construit les cartes a partir de la lecture d'un fichier .txt
+	// on va creer un constructeur qui construit les cartes a partir de la lecture d'un fichier .txt (pour les avoir de facon permanantes)
 	CarteChance (int i) { // est l'indice de la carte a creer
 		this.numCarte = i;
 		String description = ""; // va recevoir le texte de la carte
 		
 		
-		// on d�clare le nouveau fichier
+		// on declare le nouveau fichier
 		File f = new File ("src/CarteChance/carte"+i +".txt");
 		
-		// si le fichier existe on va faire les op�ration suivante
+		// si le fichier existe on va faire les operations suivantes
 		if (f.exists())
 		{
-			// on test si pas de probleme
+			// on test si pas de probleme pour trouver le fichier
 			try {
 				f.createNewFile();
 			}
@@ -34,9 +32,9 @@ public class CarteChance extends Carte {
 		
 		// on va s'occuper de la lecture
 		try (FileInputStream fis = new FileInputStream(f)) {
-			// on creer un scanner
+			// on cree un scanner
 			Scanner sc = new Scanner (fis);
-			// on attrape maintenant ligne par ligne (tant qu'il y en a)
+			// on attrape maintenant les informations ligne par ligne (tant qu'il y en a)
 				description = sc.nextLine();
 				
 		}
@@ -61,7 +59,7 @@ public class CarteChance extends Carte {
 	/////////////////////////////////////////////////////
 	
 	public static void main (String [] args) {
-		// on va cr�er 3 cartes (les trois premieres)
+		// on va cree 3 cartes (les trois premieres)
 		CarteChance c1 = new CarteChance (1);
 		CarteChance c2 = new CarteChance (2);
 		CarteChance c3 = new CarteChance (3);
