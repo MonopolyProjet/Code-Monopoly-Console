@@ -72,6 +72,11 @@ public class Jeu {
 			// on lance la creation du plateau
 			Plateau p = new Plateau (this.nom, sc.nextLine());
 		}	
+		
+		catch(FileNotFoundException e){
+			System.out.println("Pas de fichier de ce nom trouvé : "+e.getMessage());
+		}
+		
 	} // fin du constructeur
 	
 	
@@ -138,14 +143,16 @@ public class Jeu {
 		// on va creer les joueurs mais on doit savoir combien il y en a
 		System.out.print("\n" +"Entrez mainenant le nombre de joueur de cette partie (entre 2 et 8): ");
 		this.nbJoueur = scInt.nextInt();	//on donne une valeur a la variable
-		// on redonne l'info
-		System.out.println("Cette partie va donc se jouer avec " +this.nbJoueur +" joueurs");
+		
 		// on verifie que le nombre de joueur
 		while (nbJoueur < 2 ||  nbJoueur > 8 )
 		{
 			System.out.print("\n" +"Nombre de joueur incorrect : Entrez maintenant le nombre de joueur de cette partie (entre 2 et 8) : ");
 			nbJoueur = scInt.nextInt();
 		}
+		
+		// on donne l'info sur le nombre de joueur 
+		System.out.println("Cette partie va donc se jouer avec " +this.nbJoueur +" joueurs");
 					
 		System.out.println("\n" +"Vous aller entrer les noms de tous les joueurs avant de commencer la partie" +"\n");
 		// on fait une boucle pour creer les joueurs un par un
@@ -820,7 +827,12 @@ public class Jeu {
 			System.out.print ("Veuillez entrer le nom de la partie a charger (faire attention aux majuscules ...): ");
 			String nom = scString.nextLine();
 			// création du jeu a partir d'une sauvegarde
+			try{	
 			jeu = new Jeu (nom, 1);
+			}
+			catch(FileNotFoundException e){
+				System.out.println("Nom de partie introuvable : "+e.getMessage());
+			}
 		}
 			
 		
@@ -991,3 +1003,16 @@ public class Jeu {
 	} // Fin de la fonction main
 	
 } 	// Fin de la classe Jeu
+
+/** Tests realises :
+ * Creer une nouvelle partie : exception après le nom de la partie mais le jeu continu
+ * Charger une partie en metant un nom faux : exception FileNotFound : ajout d'un catch dans le constructeur pour charger les parties
+ * Indiquer un nombre de joueur correct : Ok
+ * Indiquer une couleur : exception FileNotFound 
+ * 						+ exception FileInputStream lors de la demande du nom des joueurs d'après
+ * Bug : caractéristique des cases (prix, nom, couleurs, etc) = null
+ * Répondre non a la demande d'achat : exception IndexOutOfBoundsException --> arrete l'appli
+ * Acheter une propriete : Ok
+ * Continuer la partie après un tour : Ok 
+ * Sauvegarder : NullPointerException --> arrete l'appli 
+ */
