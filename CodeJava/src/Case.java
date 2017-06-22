@@ -294,7 +294,7 @@ public class Case {
 	
 	// methode pour retourner le numero de la case
 	public int getNumCase() {
-		return (this.numCase);
+		return (this.numCase%40);
 	}
 	
 	// methode pour assigner un proprietaire
@@ -366,18 +366,18 @@ public class Case {
 	// on ajoute un hotel
 	// c1.ajouteHotel();
 	// on affiche le nombre d'hotel sur la case
-	System.out.println("Il y a : " +c1.getNbHotel() +" hôtel sur cette case");
+	System.out.println("Il y a : " +c1.getNbHotel() +" hotel sur cette case");
 	System.out.println("Il y a : " +c1.getNbMaison() +" maisons sur cette case");
 	// on supprime l'hotel et on réaffiche le nombre d'hotel
 	c1.suppHotel();
-	System.out.println("Il y a : " +c1.getNbHotel() +" hôtel sur cette case");
+	System.out.println("Il y a : " +c1.getNbHotel() +" hotel sur cette case");
 	System.out.println("Il y a : " +c1.getNbMaison() +" maisons sur cette case");
 	// puis on supprime une maison et on la réaffiche
 	c1.suppMaion(1);
 	System.out.println("Il y a : " +c1.getNbMaison() +" maisons sur cette case");
 	
 	// enfin on affiche la valeur de la case
-	System.out.println("Le prix de cette propriété est de : " +c1.getPrix());
+	System.out.println("Le prix de cette propriete est de : " +c1.getPrix());
 	}
 
 	// methode pour marquer qu'une propriete est hypotheque

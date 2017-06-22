@@ -172,7 +172,7 @@ public class Joueur{
 	}
 	
 	// methode pour ajouter un tour dans la prison
-	public void setNbTourPrison () {
+	public void IncNbTourPrison () {
 		this.nbTourEnPrison++;
 	}
 	
@@ -185,9 +185,10 @@ public class Joueur{
 	public void vaPrison () {
 		this.caseActuelle = new Case("prison", 10);
 		// on change aussi l'indice de la case à celui de la prison
-		this.indiceCaseActuelle = 11;
+		this.indiceCaseActuelle = 10;
 		// on change le boolean pour savoir si le joueur est en prison
 		this.enPrison = true;
+		this.nbTourEnPrison=0;
 	}
 	
 	// methode pour savoir si le joueur est en prison

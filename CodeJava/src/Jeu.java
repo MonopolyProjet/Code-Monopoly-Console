@@ -228,6 +228,7 @@ public class Jeu {
 	private int lanceDes () {
 		int nbAlea = 0;
 		
+		
 		Random r = new Random(); //Generation du nombre aleatoire
 		nbAlea = 2 + r.nextInt(12 - 2); //On fait en sorte que le nombre soit compris entre 2 et 12
 		
@@ -299,6 +300,7 @@ public class Jeu {
 		case 1:
 			//"Aller tout droit en prison"
 			lesJoueurs.get(ordre).setIndCaseActuelle("prison", 10);
+			lesJoueurs.get(ordre).vaPrison();
 		break;
 		case 2:
 			//"Aller à la gare la plus proche. Si vous passez par la case départ recevez 200
@@ -551,7 +553,7 @@ public class Jeu {
 			// "Avancez jusqu'à la case départ. Touchez M200 milles."
 			Case cDepart = p.getCase(1);
 			lesJoueurs.get(ordre).avancerJoueur(cDepart, 1);
-			System.out.println("Vous etes maintenant à la case départ.");
+			System.out.println("Vous etes maintenant à la case depart.");
 			lesJoueurs.get(ordre).passeCaseDepart();
 		break;
 		case 14:
@@ -600,7 +602,7 @@ public class Jeu {
 						if(lanceDes() == 2 || lanceDes() == 4 || lanceDes() == 6 || lanceDes() == 8 || lanceDes() == 10 || lanceDes() == 12)
 							lesJoueurs.get(ordre).sortPrison();
 						else
-							lesJoueurs.get(ordre).setNbTourPrison();
+							lesJoueurs.get(ordre).IncNbTourPrison();
 					}
 				}
 			}
@@ -907,21 +909,21 @@ public class Jeu {
 			/////// ON VA VOIR L'ACTION A REALISER EN FONCTION DU TYPE DE LA CASE ///////
 			
 			// si c'est une case de type chance
-			if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 7 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 22 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 36)	
+			if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 7 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 22 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 36)	
 			{
 				// on lance la methode qui s'occupe des actions des cartes chance
 				jeu.tirerCarteChance(p, ordre);		// on envoi le plateau et l'indice du joueur	
 			}
 			
 			// si c'est une case de type caisse de communaute
-			else if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 2 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 17 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 33)	
+			else if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 2 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 17 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 33)	
 			{
 				// on lance la methode qui s'occupe des actions des cartes chance
 				jeu.tirerCarteCaisseCommunaute(p, ordre);		// on envoi le plateau et l'indice du joueur				
 			}
 			
 			// si c'est une case piege (taxes, prison ... )
-			else if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 0 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 4 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 10 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 20 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 30 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 38)
+			else if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 0 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 4 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 10 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 20 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 30 || lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 38)
 			{
 				// on lance la methode pour s'occuper des cases pieges
 				jeu.tomberCasePiege(p, ordre);
