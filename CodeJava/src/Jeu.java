@@ -247,22 +247,28 @@ public class Jeu {
 	// methode pour les encheres
 	private void mettreAuxEncheres (int ordre) {
 		// on parcourt tout la liste de joueur pour qu'il rencherissent chacun leur tour jusqu'a ce qu'ils ne veulent plus
+		// on recuperer la valeur de base de cette propriete
 		int valeurProp = lesJoueurs.get(ordre).getCaseActuelle().getPrix();
+		// on cree un liste avec les joueurs participants a l'enchere
 		ArrayList <Joueur> joueursEnCourse = new ArrayList <Joueur> (); 
-		int j = 0;
 		
-		// on va créer une ArrayListe de joueur avec tout les joueurs
+		// on va creer une ArrayListe de joueur avec tout les joueurs
 		for (int i=0; i<nbJoueur; i++)
 		{
-			if (i != ordre) // on ajoute pas le joueur qui a refuse la propriete
+			if (i != ordre) // on ajoute pas le joueur qui a refuse la propriete (celui qui joue en ce moment)
 				joueursEnCourse.add(lesJoueurs.get(i));
 		}
 		
 		// on va demander a chaque joueur de la liste cree si ils veulent acheter la propriete
+		int j = 0;
 		while (joueursEnCourse.size() != 1)		// tant qu'il ne reste pas un seul joueur en course on recommence
 		{
+			// on affiche la valeur actuelle au fur et a mesure
+			System.out.println("Valeur actuelle de la propriete : " +valeurProp);
 			if (joueursEnCourse.get(j).veutAcheter())
+			{
 				valeurProp += 20000; 	// le prix de la propriete augmente petit a petit
+			}
 			else
 			{
 				// on supprime le joueur de la liste des joueurs interresses
@@ -901,21 +907,21 @@ public class Jeu {
 			/////// ON VA VOIR L'ACTION A REALISER EN FONCTION DU TYPE DE LA CASE ///////
 			
 			// si c'est une case de type chance
-			if (lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "chance")	
+			if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 7 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 22 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 36)	
 			{
 				// on lance la methode qui s'occupe des actions des cartes chance
 				jeu.tirerCarteChance(p, ordre);		// on envoi le plateau et l'indice du joueur	
 			}
 			
 			// si c'est une case de type caisse de communaute
-			else if (lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "communaute")	
+			else if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 2 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 17 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 33)	
 			{
-				// on lance la méthode qui s'occupe des actions des cartes chance
+				// on lance la methode qui s'occupe des actions des cartes chance
 				jeu.tirerCarteCaisseCommunaute(p, ordre);		// on envoi le plateau et l'indice du joueur				
 			}
 			
 			// si c'est une case piege (taxes, prison ... )
-			else if (lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "depart" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "aller en prison" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "prison" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "impots sur le revenu" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "parc gratuit" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "taxe de luxe")
+			else if (lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 0 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 4 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 10 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 20 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 30 && lesJoueurs.get(ordre).getCaseActuelle().getNumCase() == 38)
 			{
 				// on lance la methode pour s'occuper des cases pieges
 				jeu.tomberCasePiege(p, ordre);
@@ -934,7 +940,7 @@ public class Jeu {
 						lesJoueurs.get(ordre).acheterCase(lesJoueurs.get(ordre).getCaseActuelle());
 						System.out.println("Vous avez bien acheter cette propriete");
 					}
-					else if (!lesJoueurs.get(ordre).veutAcheter())	// si il la veut pas, on va la mettre aux encheres
+					else	// si il la veut pas, on va la mettre aux encheres
 						jeu.mettreAuxEncheres(ordre);
 				}
 				else // si elles est a quelqu'un, il va payer le taxe

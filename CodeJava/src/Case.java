@@ -234,6 +234,7 @@ public class Case {
 		return this.hypo;
 	}
 	
+	
 	// methode pour ajouter une maison
 	void ajouteMaison (int nbMaison, Joueur j) {
 		this.nbMaison += nbMaison;
@@ -315,14 +316,14 @@ public class Case {
 	public String toString() {
 		String s = "";
 		// pour les cases sans valeur de loyer
-		if (nom == "depart" || nom == "aller prison" || nom == "prison" || nom == "impots sur le revenu" || nom == "chance" || nom == "communaute" || nom == "parc gratuit" || nom == "taxe de luxe")
+		if (numCase == 0 && numCase == 30 && numCase == 10 && numCase == 4 && numCase == 7 && numCase == 22 && numCase == 36 && numCase == 2 && numCase == 17 && numCase == 33 && numCase == 20 && numCase == 38)
 			s = s +nom;
 		// pour les compagnies
-		else if (nom == "eau" || nom == "electricite")
+		else if (numCase == 12 && numCase == 28)
 			s = s  +nom +"\n" +"Prix de la case : " +valeur +"\n" +"Multiplier par " +loyer1maison +" la somme des des si vous avez une des compagnies, sinon par " +loyer2maison;
 		//pour les gares
-		else if (nom == "lyon" || nom == "nord" || nom == "saint-lazare" || nom == "montparnasse")
-			s = s +"gare " +nom +"\n" +"Prix de la case : " +valeur +"\n" +"Somme a multiplié par le nombre de gare : " +loyer1maison;
+		else if (numCase == 5 && numCase == 15 && numCase == 25 && numCase == 35)
+			s = s +"gare " +nom +"\n" +"Prix de la case : " +valeur +"\n" +"Somme a multiplier par le nombre de gare : " +loyer1maison;
 		// pour les cartes de propriete
 		else
 			s = s +nom +"\n" +"Valeur : " +this.valeur +"\n" +"Couleur : " +couleurCase +"\n" +"prix de la case : " +valeur +"\n" +"Loyer: " +loyer +"\n" +"1 maison: " +loyer1maison +"\n" +"2 maisons: " +loyer2maison +"\n" +"3 maisons: " +loyer3maison +"\n" +"4 maisons: " +loyer4maison +"\n" +"loyer hotel: " +loyerHotel +"\n" +"Prix immobilier: " +prixMaison;
