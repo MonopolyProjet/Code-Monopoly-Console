@@ -267,15 +267,20 @@ public class Joueur{
 	public boolean veutAcheter () {
 		boolean veut = false;
 		// on affiche le nom pour savoir a qui on parle
-		System.out.println(nom);
-		System.out.println("Voulez vous acheter la propriete ? (entrer le numero de votre reponse)");
-		System.out.println("1) Oui");
-		System.out.println("2) Non");
-		
-		Scanner sc = new Scanner(System.in); // pour le type string
-		int rep = sc.nextInt();
+		int rep = 0;
+		Scanner sc = new Scanner(System.in); // pour le type int
+		while (rep != 1 && rep != 2)
+		{
+			System.out.println(nom);
+			System.out.println("Voulez vous acheter la propriete ? (entrer le numero de votre reponse)");
+			System.out.println("1) Oui");
+			System.out.println("2) Non");
+			rep = sc.nextInt();
+		}	
+					
 		if (rep == 1)
 			veut = true;
+		
 		return veut;
 	}
 	

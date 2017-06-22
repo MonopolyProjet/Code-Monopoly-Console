@@ -245,7 +245,7 @@ public class Jeu {
 	}
 		
 	// methode pour les encheres
-	private static void mettreAuxEncheres (int ordre) {
+	private void mettreAuxEncheres (int ordre) {
 		// on parcourt tout la liste de joueur pour qu'il rencherissent chacun leur tour jusqu'a ce qu'ils ne veulent plus
 		int valeurProp = lesJoueurs.get(ordre).getCaseActuelle().getPrix();
 		ArrayList <Joueur> joueursEnCourse = new ArrayList <Joueur> (); 
@@ -903,7 +903,7 @@ public class Jeu {
 			// si c'est une case de type chance
 			if (lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "chance")	
 			{
-				// on lance la méthode qui s'occupe des actions des cartes chance
+				// on lance la methode qui s'occupe des actions des cartes chance
 				jeu.tirerCarteChance(p, ordre);		// on envoi le plateau et l'indice du joueur	
 			}
 			
@@ -915,7 +915,7 @@ public class Jeu {
 			}
 			
 			// si c'est une case piege (taxes, prison ... )
-			else if (lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "depart" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "aller_prison" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "prison" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "impots_sur_le_revenu" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "chance" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "communaute" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "parc_gratuit" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "taxe_de_luxe")
+			else if (lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "depart" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "aller en prison" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "prison" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "impots sur le revenu" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "parc gratuit" || lesJoueurs.get(ordre).getCaseActuelle().getNomCase() == "taxe de luxe")
 			{
 				// on lance la methode pour s'occuper des cases pieges
 				jeu.tomberCasePiege(p, ordre);
@@ -934,8 +934,8 @@ public class Jeu {
 						lesJoueurs.get(ordre).acheterCase(lesJoueurs.get(ordre).getCaseActuelle());
 						System.out.println("Vous avez bien acheter cette propriete");
 					}
-					else	// si il la veut pas, on va la mettre aux encheres
-						mettreAuxEncheres(ordre);
+					else if (!lesJoueurs.get(ordre).veutAcheter())	// si il la veut pas, on va la mettre aux encheres
+						jeu.mettreAuxEncheres(ordre);
 				}
 				else // si elles est a quelqu'un, il va payer le taxe
 					jeu.payerLoyer(ordre);
