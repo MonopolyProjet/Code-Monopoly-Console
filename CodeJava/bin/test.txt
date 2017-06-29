@@ -1,0 +1,4 @@
+fichier test pour le projet monopoly
+lecture dans un fichier
+rue de la paix
+400

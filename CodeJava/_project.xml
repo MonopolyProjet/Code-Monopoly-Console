@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Monopoly</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/Carte caisse de communaute</name>
+			<type>2</type>
+			<locationURI>PROJECT_LOC/Carte%20caisse%20de%20communaute</locationURI>
+		</link>
+		<link>
+			<name>src/Carte chance</name>
+			<type>2</type>
+			<locationURI>PROJECT_LOC/Carte%20chance</locationURI>
+		</link>
+		<link>
+			<name>src/Carte propriete</name>
+			<type>2</type>
+			<locationURI>PROJECT_LOC/Carte%20propriete</locationURI>
+		</link>
+		<link>
+			<name>src/Pion</name>
+			<type>2</type>
+			<locationURI>PROJECT_LOC/Pion</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

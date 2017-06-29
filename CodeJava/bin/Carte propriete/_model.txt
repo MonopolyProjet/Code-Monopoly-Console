@@ -1,0 +1,11 @@
+model de carte propriete
+nom
+loyer
+1 maison
+2 maisons
+3 maisons
+4 maisons
+hotel
+valeur hypotheque
+prix maison
+prix hotel

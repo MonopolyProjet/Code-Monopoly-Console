@@ -1,0 +1,1 @@
+"Avancez jusqu'à la case départ, recevez M200 milles."

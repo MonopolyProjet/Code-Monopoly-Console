@@ -1,0 +1,1 @@
+"Avancez jusqu'à la compagnie d'énergie la plus proche. Si elle n'appartient à personne, vous pouvez l'acheter auprès de la banque. Si celle appartient déjà à un autre joueur, lancez les dés et payer le montant du total des dés multiplié par 10. Si vous passez par la case départ, recevez M200 milles."

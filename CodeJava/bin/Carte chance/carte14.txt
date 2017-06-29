@@ -1,0 +1,1 @@
+"Avancez jusqu'à la compagnie de transport la plus proche. Si celle-ci n'appartient à personne, vous pouvez l'acheter auprès de la banque. Si elle appartient déjà à un autre joueu, vous devez lui payer deux fois le loyer demandé. Si vous passez par la case départ, recevez M200 milles."

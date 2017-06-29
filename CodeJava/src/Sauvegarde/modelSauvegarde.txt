@@ -1,0 +1,63 @@
+(On en peut pas faire de saut de linge, on va donc mettre le caractère "/" pour le symboliser)
+///////////////////////////////////////////////////
+// Fichier de sauvegarde du jeu
+nom
+ordre
+nbJoueur
+/
+//selon le nombre de joueur
+nom fichier joueur 1 : joueur1.txt
+...
+...
+/
+nom fichier pour le plateau : plateau.txt
+
+///////////////////////////////////////////////////
+// Fichier de sauvegarde d'un joueur
+String nomJoueur
+int argentJoueur
+String couleur
+/
+ArrayList listeCarteChance
+// liste de tout les numero de carte qu'il a
+/
+ArrayList listeCarteCommunaute
+// liste de tout les numéros de carte qu'il a
+/
+ArrayList listePropriete
+// liste de tout les noms des carte qu'il a
+/
+Case caseActuelle	// nom de la case actuelle
+int indiceCase
+int nbGare
+boolean enPrison	// true or false
+int nbTourEnPrison
+
+///////////////////////////////////////////////
+// Fichier de sauvegarde du plateau
+ArrayList toutCase
+// liste de tout les noms de case
+/
+nbCase
+argentPlateau
+
+
+///////////////////////////////////////////////////////////
+// fichier de sauvegarde d'une case
+numCase
+nom
+nbMaison
+nbHotel
+proprietaire (joueur)
+valeur
+loyer
+couleurCase
+loyer1maison
+loyer2maison
+loyer3maison
+loyer4maison
+loyerHotel
+hypo
+prixMaison
+prixHotel
+hypotheque (boolean)
